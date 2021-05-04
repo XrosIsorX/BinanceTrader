@@ -1,0 +1,32 @@
+import os
+import sys
+os.chdir("..")
+sys.path.append(".")
+
+import pandas as pd
+import time
+from datetime import datetime
+
+import config
+
+from binance.BinanceApi import BinanceApi
+from binance import DataProcessor, DataDownloader
+
+binance_api = BinanceApi(api_type="future")
+
+# symbol = "BNBUSDT"
+symbol = "DOGEUSDT"
+
+response = binance_api.send_public_request('/fapi/v1/trades', payload={'symbol': symbol, "limit": 1000})
+df = DataProcessor.convert_trade_response_to_dataframe(response)
+print(df)
+
+DataDownloader.download_trade_id('/fapi/v1/historicalTrades', symbol=symbol, last_id=172000000, n_trade=1000000, delay_time=1.2)
+
+# df = DataDownloader.download_with_number_trade('/fapi/v1/historicalTrades', symbol=symbol, last_id=174000000, n_trade=100000, delay_time=2)
+# df.to_csv(f"{config.trade_logs_binance_data_dir}{symbol}.csv")
+
+# df = DataDownloader.download_with_number_trade('/fapi/v1/historicalTrades', symbol=symbol, last_id=174000000, n_trade=100000, delay_time=2)
+# df.to_csv(f"{config.trade_logs_binance_data_dir}{symbol}.csv")
+# DataDownloader.download_period('/api/v3/historicalTrades', symbol=symbol, id=224114000)
+# DataDownloader.download_period('/fapi/v1/historicalTrades', symbol=symbol, last_id=174000000, until_date=datetime(2021, 4, 1), delay_time=1.2)
