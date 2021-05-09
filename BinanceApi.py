@@ -16,8 +16,8 @@ python spot.py
 ```
 """
 
-KEY = ''
-SECRET = ''
+key_file = open('KEY.txt', 'r')
+KEY, SECRET = key_file.read().split('\n')
 
 class BinanceApi:
     

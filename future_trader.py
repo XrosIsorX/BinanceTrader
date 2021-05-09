@@ -10,13 +10,15 @@ import pandas as pd
 import DataProcessor
 from BinanceApi import BinanceApi
 
-binance_api = BinanceApi(api_type="future", is_production=True)
+binance_api = BinanceApi(api_type="future", is_production=False)
 
 response = binance_api.send_signed_request('GET', '/fapi/v2/account')
 
 response = binance_api.send_public_request("/fapi/v1/trades", payload={'symbol': "DOGEUSDT", "limit": 1000})
-df = DataProcessor.convert_trade_response_to_dataframe(response)
-print(df)
+print(response)
+
+#df = DataProcessor.convert_trade_response_to_dataframe(response)
+#print(df)
 
 # ### USER_DATA endpoints, call send_signed_request #####
 # # place an order
