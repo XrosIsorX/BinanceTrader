@@ -16,12 +16,17 @@ python spot.py
 ```
 """
 
-key_file = open('KEY.txt', 'r')
-KEY, SECRET = key_file.read().split('\n')
-
 class BinanceApi:
     
     def __init__(self, api_type, is_production=True):
+        if is_production:
+            key_file = open('KEY.txt', 'r')
+        else:
+            key_file = open('KEY_TESTNET.txt', 'r')
+
+        self.key, self.secret = key_file.read().split('\n')
+        key_file.close()
+
         if api_type == "spot":
             if is_production:
                 self.base_url = 'https://api.binance.com' # production base url
@@ -35,7 +40,7 @@ class BinanceApi:
 
     ''' ======  begin of functions, you don't need to touch ====== '''
     def hashing(self, query_string):
-        return hmac.new(SECRET.encode('utf-8'), query_string.encode('utf-8'), hashlib.sha256).hexdigest()
+        return hmac.new(self.secret.encode('utf-8'), query_string.encode('utf-8'), hashlib.sha256).hexdigest()
 
     def get_timestamp(self, ):
         return int(time.time() * 1000)
@@ -44,7 +49,7 @@ class BinanceApi:
         session = requests.Session()
         session.headers.update({
             'Content-Type': 'application/json;charset=utf-8',
-            'X-MBX-APIKEY': KEY
+            'X-MBX-APIKEY': self.key
         })
         return {
             'GET': session.get,
