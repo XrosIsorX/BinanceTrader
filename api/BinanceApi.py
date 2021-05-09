@@ -20,9 +20,9 @@ class BinanceApi:
     
     def __init__(self, api_type, is_production=True):
         if is_production:
-            key_file = open('KEY.txt', 'r')
+            key_file = open('api/KEY.txt', 'r')
         else:
-            key_file = open('KEY_TESTNET.txt', 'r')
+            key_file = open('api/KEY_TESTNET.txt', 'r')
 
         self.key, self.secret = key_file.read().split('\n')
         key_file.close()

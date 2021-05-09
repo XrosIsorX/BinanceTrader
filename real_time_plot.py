@@ -10,8 +10,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-import DataProcessor
-from BinanceApi import BinanceApi
+from utils import DataProcessor
+from api.BinanceApi import BinanceApi
 
 max_lenth = 200
 x_deque = collections.deque(maxlen=max_lenth)

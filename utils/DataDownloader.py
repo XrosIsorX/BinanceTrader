@@ -6,8 +6,8 @@ from datetime import datetime
 
 import config
 
-from binance.BinanceApi import BinanceApi
-from binance import DataProcessor
+from BinanceApi import BinanceApi
+import DataProcessor
 
 api_trade_limit = 1000
 binance_api = BinanceApi(api_type="future")

@@ -7,8 +7,8 @@ from urllib.parse import urlencode
 
 import pandas as pd
 
-import DataProcessor
-from BinanceApi import BinanceApi
+from utils import DataProcessor
+from api.BinanceApi import BinanceApi
 
 binance_api = BinanceApi(api_type="future", is_production=False)
 

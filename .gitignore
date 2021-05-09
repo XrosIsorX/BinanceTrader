@@ -1,3 +1,7 @@
 __pycache__/
+.ipynb_checkpoints
+
 KEY.txt
 KEY_TESTNET.txt
+
+data

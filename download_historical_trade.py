@@ -10,7 +10,7 @@ from datetime import datetime
 import config
 
 from binance.BinanceApi import BinanceApi
-from binance import DataProcessor, DataDownloader
+import DataProcessor, DataDownloader
 
 binance_api = BinanceApi(api_type="future")
 
