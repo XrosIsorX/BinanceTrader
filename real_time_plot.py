@@ -1,8 +1,3 @@
-import os
-import sys
-os.chdir("..")
-sys.path.append(".")
-
 import hmac
 import time
 import hashlib
@@ -15,10 +10,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-from binance.BinanceApi import BinanceApi
-from binance import DataProcessor
+import DataProcessor
+from BinanceApi import BinanceApi
 
-max_lenth = 500
+max_lenth = 200
 x_deque = collections.deque(maxlen=max_lenth)
 sum_volume_deque = collections.deque(maxlen=max_lenth)
 zero_deque = collections.deque(maxlen=max_lenth)
