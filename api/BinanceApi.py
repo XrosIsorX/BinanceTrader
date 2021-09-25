@@ -70,7 +70,7 @@ class BinanceApi:
         print("{} {}".format(http_method, url))
         params = {'url': url, 'params': {}}
         response = self.dispatch_request(http_method)(**params)
-        return response.json()
+        return response
 
     # used for sending public data request
     def send_public_request(self, url_path, payload={}):
@@ -80,4 +80,4 @@ class BinanceApi:
             url = url + '?' + query_string
         # print("{}".format(url))
         response = self.dispatch_request('GET')(url=url)
-        return response.json()
+        return response

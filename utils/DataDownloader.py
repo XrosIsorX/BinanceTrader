@@ -15,15 +15,24 @@ binance_api = BinanceApi(api_type="future")
 def download_trade_id(url, symbol, last_id, n_trade, delay_time=1):
     os.makedirs(f"{config.trade_logs_id_binance_data_dir}{symbol}/", exist_ok=True)
     i = 1
+    error_count = 0
     while(i * api_trade_limit <= n_trade):
         print(i * api_trade_limit)
         response = binance_api.send_public_request(url, payload={
             'symbol': symbol, "limit": api_trade_limit, "fromId": last_id - (i * api_trade_limit)
         })
-        df = DataProcessor.convert_trade_response_to_dataframe(response)
+        if response.status_code == 503:
+            error_count += 1
+            print(f"Encounter 503 for {error_count} time !!!")
+            if error_count == 3:
+                break
+            time.sleep(delay_time)
+            continue
+        df = DataProcessor.convert_trade_response_to_dataframe(response.json())
         df = df.sort_index()
         df.to_csv(f"{config.trade_logs_id_binance_data_dir}{symbol}/{last_id - (i * api_trade_limit)}_{last_id - ((i - 1) * api_trade_limit)}.csv")
         i += 1
+        error_count = 0
         time.sleep(delay_time)
 
 def download_with_number_trade(url, symbol, last_id, n_trade, delay_time=1):
